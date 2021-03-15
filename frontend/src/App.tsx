@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:4000/")
       .then((res) => res.text())
-      .then((res) => setApiResponse([res]));
+      .then((res) => setApiResponse(res));
   }, []);
 
   return (

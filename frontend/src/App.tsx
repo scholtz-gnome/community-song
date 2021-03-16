@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [apiResponse, setApiResponse] = useState("");
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <h1>Community Song</h1>
         <p className="App-intro">The backend response is: {apiResponse}</p>

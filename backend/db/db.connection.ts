@@ -1,7 +1,7 @@
 import { config } from "../config";
-import { knexConfig } from "../knexConfig";
+const knexfile = require("../knexfile");
 import knex from "knex";
 const environment = config.NODE_ENV || "development";
-const dbConnection = knexConfig[environment];
+const dbConnection = knexfile[environment];
 
 export default knex(dbConnection);

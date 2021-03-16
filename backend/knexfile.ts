@@ -1,4 +1,4 @@
-export const knexConfig: any = {
+module.exports = {
   test: {
     client: "pg",
     connection: {
@@ -8,10 +8,10 @@ export const knexConfig: any = {
       database: "comm_song_test",
     },
     migrations: {
-      directory: "./src/db/migrations",
+      directory: __dirname + "/db/migrations",
     },
     seeds: {
-      directory: "./src/db/seeds",
+      directory: __dirname + "/db/seeds",
     },
   },
 
@@ -24,10 +24,10 @@ export const knexConfig: any = {
       database: "comm_song_dev",
     },
     migrations: {
-      directory: "./src/db/migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./src/db/seeds",
+      directory: "./db/seeds",
     },
   },
 
@@ -40,10 +40,10 @@ export const knexConfig: any = {
       database: "comm_song",
     },
     migrations: {
-      directory: "./src/db/migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./src/db/seeds",
+      directory: "./db/seeds",
     },
   },
 };

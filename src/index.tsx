@@ -3,10 +3,10 @@ import "./index.css";
 import App from "./App";
 import { config } from "./config";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <Auth0Provider
       domain={config.domain}
       clientId={config.clientId}
@@ -15,6 +15,6 @@ ReactDOM.render(
       <App />
     </Auth0Provider>
     ,
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );

@@ -11,7 +11,7 @@ function App() {
   const { isLoading } = useAuth0();
 
   useEffect(() => {
-    fetch("http://localhost:4000/")
+    fetch("https://gentle-gorge-46979.herokuapp.com/")
       .then((res) => res.text())
       .then((res) => setApiResponse(res));
   }, []);

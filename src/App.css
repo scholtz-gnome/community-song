@@ -4,19 +4,15 @@
   box-sizing: border-box;
 }
 
-body {
-  padding: 2rem;
-}
-
-button {
-  margin: 2rem 0;
-  padding: 1rem 2rem;
-  width: 120px;
-  cursor: pointer;
-}
-
 img {
   width: 50px;
-  border: solid rgb(0, 31, 207) 2px;
+  border: solid rgb(0, 0, 0) 2px;
   border-radius: 50px;
+}
+
+.App-header {
+  margin: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

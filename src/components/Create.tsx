@@ -1,8 +1,7 @@
-import { useState } from "react";
 import "./Create.css";
-export interface CreateProps {}
+import { useState } from "react";
 
-const Create: React.FC<CreateProps> = () => {
+const Create: React.FC = () => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
 

@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-export interface NavbarProps {}
 
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
       <div className="logo">

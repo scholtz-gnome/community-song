@@ -1,7 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import "./LoginButton.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const LoginButton = () => {
+const LoginButton: React.FC = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   if (!isAuthenticated) {
     return (

@@ -6,8 +6,8 @@ import Create from "./components/Create";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-function App() {
-  const [apiResponse, setApiResponse] = useState("");
+const App: React.FC = () => {
+  const [apiResponse, setApiResponse] = useState<string>("");
   const { isLoading } = useAuth0();
 
   useEffect(() => {
@@ -41,6 +41,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

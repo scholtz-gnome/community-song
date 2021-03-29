@@ -5,9 +5,10 @@ const Create: React.FC = () => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [song, setSong] = useState("");
+  const [message, setMessage] = useState("");
 
   const onTitleChange = (e: any) => {
-    setTitle(e.target.value);
+    setTitle(e.target.value.trim());
   };
 
   const onArtistChange = (e: any) => {
@@ -26,13 +27,18 @@ const Create: React.FC = () => {
     formData.append("artist", artist);
     formData.append("file", song);
 
-    const res = await fetch("http://localhost:4000/songs/", {
-      method: "POST",
-      body: formData,
-    });
+    if (title !== "" && artist !== "") {
+      const res = await fetch("http://localhost:4000/songs/", {
+        method: "POST",
+        body: formData,
+      });
 
-    const json = await res.json();
-    console.log(json);
+      const json = await res.json();
+      setMessage(json.message);
+      console.log(song);
+    } else {
+      setMessage("Don't leave those inputs empty.");
+    }
   };
 
   return (
@@ -55,6 +61,7 @@ const Create: React.FC = () => {
         <div>
           <button>Create</button>
         </div>
+        <div>{message}</div>
       </form>
     </div>
   );

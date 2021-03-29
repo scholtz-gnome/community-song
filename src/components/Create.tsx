@@ -27,7 +27,7 @@ const Create: React.FC<CreateProps> = () => {
     formData.append("artist", artist);
     formData.append("file", song);
 
-    const res = await fetch("http://localhost:4000/song/upload", {
+    const res = await fetch("http://localhost:4000/songs/", {
       method: "POST",
       body: formData,
     });

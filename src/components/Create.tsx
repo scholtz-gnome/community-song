@@ -37,10 +37,13 @@ const Create: React.FC = () => {
 
     if (title !== "" && artist !== "") {
       try {
-        const res = await fetch("http://localhost:4000/songs/", {
-          method: "POST",
-          body: formData,
-        });
+        const res = await fetch(
+          "https://community-song-api.herokuapp.com/songs/",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         const json = await res.json();
         setMessage(json.message);

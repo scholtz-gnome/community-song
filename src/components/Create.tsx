@@ -13,6 +13,7 @@ const Create: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [submitButtonColor, setSubmitButtonColor] = useState("grey");
 
   const splitType = (str: string) => {
     return str.split("/")[1];
@@ -39,12 +40,17 @@ const Create: React.FC = () => {
       setMessage(
         `File type ${splitType(e.target.files[0].type)} not supported.`
       );
+      setSubmitButtonColor("grey");
+      setIsOpened(false);
     } else if (fileSize > 10 * 1024 * 1024) {
       setMessage("File size exceeded. Cannot exceed 10MB.");
+      setSubmitButtonColor("grey");
+      setIsOpened(false);
     } else {
       setMessage("");
       setFileSize(Math.round((fileSize / 1024 / 1024) * 10) / 10);
       setIsOpened(true);
+      setSubmitButtonColor("live");
     }
   };
 
@@ -67,15 +73,17 @@ const Create: React.FC = () => {
       },
     };
 
-    if (title !== "" && artist !== "") {
-      try {
-        const res = await axios.post(url, formData, config);
-        setMessage(res.data.message);
-      } catch (err) {
-        setMessage("Server error");
+    if (message === "") {
+      if (title !== "" && artist !== "") {
+        try {
+          const res = await axios.post(url, formData, config);
+          setMessage(res.data.message);
+        } catch (err) {
+          setMessage("Server error");
+        }
+      } else {
+        setMessage("Don't leave those inputs empty.");
       }
-    } else {
-      setMessage("Don't leave those inputs empty.");
     }
   };
 
@@ -87,7 +95,7 @@ const Create: React.FC = () => {
       </header>
       <form onSubmit={onSubmit}>
         <div>
-          <label>Song title</label>
+          <label className="labelName">Song title</label>
           <input
             type="text"
             name="title"
@@ -97,11 +105,11 @@ const Create: React.FC = () => {
           />
         </div>
         <div>
-          <label>Artist</label>
+          <label className="labelName">Artist</label>
           <input type="text" name="artist" required onChange={onArtistChange} />
         </div>
         <div>
-          <label>Upload</label>
+          <label className="labelName">File</label>
           <label htmlFor="upload" className="upload">
             Choose File
           </label>
@@ -121,9 +129,9 @@ const Create: React.FC = () => {
             </div>
           </div>
         )}
-        <div>{message}</div>
+        <div className="message">{message}</div>
         <div>
-          <button>Create</button>
+          <button className={submitButtonColor}>Create</button>
         </div>
         {isUploading && (
           <div

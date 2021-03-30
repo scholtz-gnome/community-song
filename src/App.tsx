@@ -22,8 +22,8 @@ const App: React.FC = () => {
     <Router>
       <div className="App">
         <Navbar />
-        <Switch>
-          <div>
+        <div>
+          <Switch>
             <Route exact path="/">
               <header className="App-header">
                 <h1>Community Song</h1>
@@ -38,8 +38,8 @@ const App: React.FC = () => {
             <Route path="/create">
               <Create />
             </Route>
-          </div>
-        </Switch>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

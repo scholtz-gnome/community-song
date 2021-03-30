@@ -11,7 +11,13 @@ form > div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 5px;
+  margin: 20px 5px;
+}
+
+label {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 5px;
 }
 
 div > input {
@@ -37,7 +43,7 @@ input[type="text"] {
 }
 
 .upload {
-  padding: 2px;
+  padding: 4px;
   border: 1.5px solid black;
   border-radius: 50px;
   height: 30px;
@@ -58,16 +64,16 @@ input[type="text"] {
   padding: 8px;
   width: 100%;
   border-radius: 6px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.8);
   text-align: center;
 }
 
 .files > div:hover {
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
 }
 
-button {
+.live {
   border-radius: 50px;
   height: 30px;
   width: 50%;
@@ -78,8 +84,20 @@ button {
   outline: none;
 }
 
-button:hover {
+.live:hover {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.grey {
+  border-radius: 50px;
+  height: 30px;
+  width: 50%;
+  background-color: white;
+  text-align: center;
+  border: 1.5px solid rgba(128, 128, 128, 0.7);
+  color: rgba(128, 128, 128, 0.7);
+  font-size: 18px;
+  outline: none;
 }
 
 .uploadPercentage {
@@ -87,6 +105,12 @@ button:hover {
   box-shadow: 0px 0px 5px rgba(0, 197, 0, 0.747);
   border-radius: 50px;
   height: 30px;
-  padding: 4px;
+  padding: 6px;
   color: white;
+  font-size: 15px;
+}
+
+.message {
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.8);
 }

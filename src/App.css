@@ -36,7 +36,7 @@ header h1 {
 
 .outline {
   margin: 10px 10%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   width: 900px;
   display: flex;

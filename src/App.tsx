@@ -23,20 +23,22 @@ const App: React.FC = () => {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route exact path="/">
-            <header className="App-header">
-              <h1>Community Song</h1>
-              <p className="App-intro">
-                The backend response is: {apiResponse}
-              </p>
-            </header>
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/create">
-            <Create />
-          </Route>
+          <div>
+            <Route exact path="/">
+              <header className="App-header">
+                <h1>Community Song</h1>
+                <p className="App-intro">
+                  The backend response is: {apiResponse}
+                </p>
+              </header>
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/create">
+              <Create />
+            </Route>
+          </div>
         </Switch>
       </div>
     </Router>

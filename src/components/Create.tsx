@@ -1,7 +1,8 @@
 import "./Create.css";
-import { BaseSyntheticEvent, useState } from "react";
 import "./form.css";
+import { BaseSyntheticEvent, useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Create: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -14,6 +15,22 @@ const Create: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [submitButtonColor, setSubmitButtonColor] = useState("grey");
+  const [id, setId] = useState(0);
+
+  const { user, isAuthenticated } = useAuth0();
+
+  const getUserId = async () => {
+    const userId = await fetch(`http://localhost:4000/profile/${user.email}`);
+    const data = await userId.json();
+    setId(data);
+  };
+
+  // get user id as page loads, send off with song upload in file table
+  useEffect(() => {
+    if (isAuthenticated) {
+      getUserId();
+    }
+  });
 
   const splitType = (str: string) => {
     return str.split("/")[1];
@@ -58,6 +75,7 @@ const Create: React.FC = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    // Add user id to form data
     formData.append("title", title);
     formData.append("artist", artist);
     formData.append("file", song);

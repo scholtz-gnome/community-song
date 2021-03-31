@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
@@ -7,14 +7,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App: React.FC = () => {
-  const [apiResponse, setApiResponse] = useState<string>("");
-  const { isLoading } = useAuth0();
+  const { isLoading, user, isAuthenticated } = useAuth0();
+
+  const saveProfileDetails = async () => {
+    await fetch("http://localhost:4000/profile/login", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: { "Content-Type": "application/json" },
+    });
+  };
 
   useEffect(() => {
-    fetch("https://community-song-api.herokuapp.com/")
-      .then((res) => res.text())
-      .then((res) => setApiResponse(res));
-  }, []);
+    if (isAuthenticated) {
+      saveProfileDetails();
+    }
+  });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -27,9 +34,11 @@ const App: React.FC = () => {
             <Route exact path="/">
               <header className="App-header">
                 <h1>Community Song</h1>
-                <p className="App-intro">
-                  The backend response is: {apiResponse}
-                </p>
+                {isAuthenticated && (
+                  <div className="App-intro">
+                    Welcome to Community Song, {user.given_name}
+                  </div>
+                )}
               </header>
             </Route>
             <Route path="/profile">

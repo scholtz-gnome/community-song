@@ -1,7 +1,18 @@
 import "./Create.css";
-import { BaseSyntheticEvent, useState } from "react";
 import "./form.css";
+import { BaseSyntheticEvent, useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const getUserId = async (userIsAuthenticated: any, user: any, setId: any) => {
+  if (userIsAuthenticated) {
+    const userId = await fetch(
+      `https://community-song-api.herokuapp.com/profile/${user.email}`
+    );
+    const data = await userId.json();
+    setId(data);
+  }
+};
 
 const Create: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -14,20 +25,23 @@ const Create: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [submitButtonColor, setSubmitButtonColor] = useState("grey");
+  const [id, setId] = useState("");
 
-  const splitType = (str: string) => {
-    return str.split("/")[1];
-  };
+  const { user, isAuthenticated } = useAuth0();
 
-  const onTitleChange = (e: BaseSyntheticEvent) => {
+  useEffect(() => {
+    getUserId(isAuthenticated, user, setId);
+  }, [isAuthenticated, user]);
+
+  const splitType = (str: string) => str.split("/")[1];
+
+  const onTitleChange = (e: BaseSyntheticEvent) =>
     setTitle(e.target.value.trim());
-  };
 
-  const onArtistChange = (e: BaseSyntheticEvent) => {
+  const onArtistChange = (e: BaseSyntheticEvent) =>
     setArtist(e.target.value.trim());
-  };
 
-  const onSongChange = (e: BaseSyntheticEvent) => {
+  const onSongChange = async (e: BaseSyntheticEvent) => {
     setSong(e.target.files[0]);
     setSongName(e.target.files[0].name);
     setFileSize(e.target.files[0].size);
@@ -58,6 +72,8 @@ const Create: React.FC = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    console.log(id);
+    formData.append("id", id);
     formData.append("title", title);
     formData.append("artist", artist);
     formData.append("file", song);
@@ -138,7 +154,7 @@ const Create: React.FC = () => {
             className="uploadPercentage"
             style={{ width: `${uploadPercentage}%` }}
           >
-            {uploadPercentage}%
+            Uploading: {uploadPercentage}%
           </div>
         )}
       </form>

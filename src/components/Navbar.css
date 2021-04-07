@@ -29,3 +29,14 @@
   justify-content: center;
   flex: 2;
 }
+
+.logged-in {
+  display: flex;
+  align-content: center;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

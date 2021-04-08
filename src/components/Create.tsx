@@ -1,20 +1,15 @@
 import "./Create.css";
 import "./form.css";
-import { BaseSyntheticEvent, useState, useEffect } from "react";
+import { BaseSyntheticEvent, useState } from "react";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
+import config from "../config";
+import User from "../interfaces/UserInterface";
 
-const getUserId = async (userIsAuthenticated: any, user: any, setId: any) => {
-  if (userIsAuthenticated) {
-    const userId = await fetch(
-      `https://community-song-api.herokuapp.com/profile/${user.email}`
-    );
-    const data = await userId.json();
-    setId(data);
-  }
-};
+interface UserProps {
+  user: User | undefined;
+}
 
-const Create: React.FC = () => {
+const Create: React.FC<UserProps> = ({ user }) => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [song, setSong] = useState("");
@@ -25,13 +20,6 @@ const Create: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [submitButtonColor, setSubmitButtonColor] = useState("grey");
-  const [id, setId] = useState("");
-
-  const { user, isAuthenticated } = useAuth0();
-
-  useEffect(() => {
-    getUserId(isAuthenticated, user, setId);
-  }, [isAuthenticated, user]);
 
   const splitType = (str: string) => str.split("/")[1];
 
@@ -72,14 +60,13 @@ const Create: React.FC = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    console.log(id);
-    formData.append("id", id);
     formData.append("title", title);
     formData.append("artist", artist);
     formData.append("file", song);
 
-    const url = "https://community-song-api.herokuapp.com/songs/";
-    const config = {
+    const url = `${config.API_ROOT}/songs`;
+    const axiosConfig = {
+      withCredentials: true,
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (progressEvent: ProgressEvent) => {
         setIsUploading(true);
@@ -92,7 +79,7 @@ const Create: React.FC = () => {
     if (message === "") {
       if (title !== "" && artist !== "") {
         try {
-          const res = await axios.post(url, formData, config);
+          const res = await axios.post(url, formData, axiosConfig);
           setMessage(res.data.message);
         } catch (err) {
           setMessage("Server error");

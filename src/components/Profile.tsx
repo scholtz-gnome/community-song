@@ -1,18 +1,22 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import User from "../interfaces/UserInterface";
 
-const Profile: React.FC = () => {
-  const { user, isAuthenticated } = useAuth0();
+interface UserProps {
+  user: User | undefined;
+}
 
-  if (isAuthenticated) {
+const Profile: React.FC<UserProps> = ({ user }) => {
+  if (user?.id) {
     return (
       <div className="outline">
-        <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
+        <img src={user.profile_pic} alt={user.email} />
+        <p>Name:{user.first_name}</p>
+        <p>Surname: {user.last_name}</p>
         <p>{user.email}</p>
+        <p></p>
       </div>
     );
   } else {
-    return <div></div>;
+    return <div>You're not logged in</div>;
   }
 };
 

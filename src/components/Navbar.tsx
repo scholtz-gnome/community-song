@@ -1,9 +1,13 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+import User from "../interfaces/UserInterface";
+import config from "../config";
 
-const Navbar: React.FC = () => {
+interface UserProps {
+  user: User | undefined;
+}
+
+const Navbar: React.FC<UserProps> = ({ user }) => {
   return (
     <nav className="navbar">
       <div className="logo">
@@ -23,8 +27,17 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className="auth">
-        <LoginButton />
-        <LogoutButton />
+        {user?.id && (
+          <div className="logged-in">
+            <div className="link">
+              <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
+            </div>
+            <div>
+              <img src={user.profile_pic} alt={user.email} />
+            </div>
+          </div>
+        )}
+        {!user?.id && <a href={`${config.API_ROOT}/auth/google`}>Log In</a>}
       </div>
     </nav>
   );

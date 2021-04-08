@@ -4,12 +4,14 @@ import Profile from "./components/Profile";
 import Create from "./components/Create";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import config from "./config";
 import axios from "axios";
 import User from "./interfaces/UserInterface";
+import Song from "./interfaces/SongInterface";
 
 const getUserDetails = async (setUser: Function) => {
   try {
-    const res = await axios.get("http://localhost:4000/auth", {
+    const res = await axios.get(`${config.API_ROOT}/auth`, {
       withCredentials: true,
     });
     const userDetails: User = res.data;
@@ -19,11 +21,23 @@ const getUserDetails = async (setUser: Function) => {
   }
 };
 
+const getSongs = async (setSongs: Function) => {
+  try {
+    const res = await axios.get(`${config.API_ROOT}/songs`);
+    const songs = res.data;
+    setSongs(songs);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const App: React.FC = () => {
   const [user, setUser] = useState<User | undefined>();
+  const [songs, setSongs] = useState<Song[] | undefined>([]);
 
   useEffect(() => {
     getUserDetails(setUser);
+    getSongs(setSongs);
   }, []);
 
   return (
@@ -41,12 +55,25 @@ const App: React.FC = () => {
                   )}
                 </div>
               </header>
+              <main>
+                <ul>
+                  {songs &&
+                    songs.map((song, index) => (
+                      <li key={index}>
+                        <div></div>
+                        <p>Title: {song.title}</p>
+                        <p>Artist: {song.artist}</p>
+                        <p>Added by: {song.first_name}</p>
+                      </li>
+                    ))}
+                </ul>
+              </main>
             </Route>
             <Route path="/profile">
               <Profile user={user} />
             </Route>
             <Route path="/create">
-              <Create />
+              <Create user={user} />
             </Route>
           </Switch>
         </div>

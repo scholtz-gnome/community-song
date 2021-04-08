@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import User from "../interfaces/UserInterface";
+import config from "../config";
 
 interface UserProps {
   user: User | undefined;
@@ -29,14 +30,14 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
         {user?.id && (
           <div className="logged-in">
             <div className="link">
-              <a href="http://localhost:4000/auth/logout">Log Out</a>
+              <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
             </div>
             <div>
               <img src={user.profile_pic} alt={user.email} />
             </div>
           </div>
         )}
-        {!user?.id && <a href="http://localhost:4000/auth/google">Log In</a>}
+        {!user?.id && <a href={`${config.API_ROOT}/auth/google`}>Log In</a>}
       </div>
     </nav>
   );

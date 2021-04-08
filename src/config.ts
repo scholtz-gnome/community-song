@@ -1,8 +1,8 @@
 interface Config {
-  domain: string;
-  clientId: string;
+  API_ROOT: string | undefined;
 }
-export const config: Config = {
-  domain: process.env.REACT_APP_AUTH0_DOMAIN || "",
-  clientId: process.env.REACT_APP_AUTH0_CLIENT_ID || "",
+const config: Config = {
+  API_ROOT: process.env.API_ROOT || "http://localhost:4000",
 };
+
+export default config;

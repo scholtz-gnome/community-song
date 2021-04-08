@@ -16,7 +16,7 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <div>You're not logged in</div>;
   }
 };
 

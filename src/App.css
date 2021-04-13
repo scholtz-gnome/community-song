@@ -5,8 +5,7 @@
 }
 
 img {
-  width: 50px;
-  border: solid rgb(0, 0, 0) 2px;
+  height: 40px;
   border-radius: 50px;
 }
 
@@ -35,7 +34,8 @@ header h1 {
 }
 
 .outline {
-  margin: 10px 10%;
+  margin: 15px 0;
+  padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   width: 900px;

@@ -2,12 +2,13 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Create from "./components/Create";
+import SongList from "./components/SongList";
+import SongDisplay from "./components/SongDisplay";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import config from "./config";
 import axios from "axios";
 import User from "./interfaces/UserInterface";
-import Song from "./interfaces/SongInterface";
 
 const getUserDetails = async (setUser: Function) => {
   try {
@@ -21,23 +22,11 @@ const getUserDetails = async (setUser: Function) => {
   }
 };
 
-const getSongs = async (setSongs: Function) => {
-  try {
-    const res = await axios.get(`${config.API_ROOT}/songs`);
-    const songs = res.data;
-    setSongs(songs);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const App: React.FC = () => {
   const [user, setUser] = useState<User | undefined>();
-  const [songs, setSongs] = useState<Song[] | undefined>([]);
 
   useEffect(() => {
     getUserDetails(setUser);
-    getSongs(setSongs);
   }, []);
 
   return (
@@ -56,24 +45,17 @@ const App: React.FC = () => {
                 </div>
               </header>
               <main>
-                <ul>
-                  {songs &&
-                    songs.map((song, index) => (
-                      <li key={index}>
-                        <div></div>
-                        <p>Title: {song.title}</p>
-                        <p>Artist: {song.artist}</p>
-                        <p>Added by: {song.first_name}</p>
-                      </li>
-                    ))}
-                </ul>
+                <SongList />
               </main>
             </Route>
             <Route path="/profile">
               <Profile user={user} />
             </Route>
             <Route path="/create">
-              <Create user={user} />
+              <Create />
+            </Route>
+            <Route path="/songs">
+              <SongDisplay />
             </Route>
           </Switch>
         </div>

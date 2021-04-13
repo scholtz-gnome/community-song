@@ -3,13 +3,8 @@ import "./form.css";
 import { BaseSyntheticEvent, useState } from "react";
 import axios from "axios";
 import config from "../config";
-import User from "../interfaces/UserInterface";
 
-interface UserProps {
-  user: User | undefined;
-}
-
-const Create: React.FC<UserProps> = ({ user }) => {
+const Create: React.FC = () => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [song, setSong] = useState("");
@@ -73,6 +68,7 @@ const Create: React.FC<UserProps> = ({ user }) => {
         setUploadPercentage(
           Math.round((progressEvent.loaded * 100) / progressEvent.total)
         );
+        setMessage("Nearly there...");
       },
     };
 
@@ -132,7 +128,6 @@ const Create: React.FC<UserProps> = ({ user }) => {
             </div>
           </div>
         )}
-        <div className="message">{message}</div>
         <div>
           <button className={submitButtonColor}>Create</button>
         </div>
@@ -141,9 +136,10 @@ const Create: React.FC<UserProps> = ({ user }) => {
             className="uploadPercentage"
             style={{ width: `${uploadPercentage}%` }}
           >
-            Uploading: {uploadPercentage}%
+            {uploadPercentage}%
           </div>
         )}
+        <div className="message">{message}</div>
       </form>
     </div>
   );

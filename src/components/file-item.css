@@ -1,0 +1,17 @@
+.file-item {
+  margin: 6px;
+  padding: 8px;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.file-item:hover {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.file-item > a {
+  text-decoration: none;
+  color: black;
+}

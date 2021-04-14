@@ -55,24 +55,6 @@ input[type="text"] {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.files {
-  display: flex;
-}
-
-.files > div {
-  margin: 5px;
-  padding: 8px;
-  width: 100%;
-  border-radius: 6px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.8);
-  text-align: center;
-}
-
-.files > div:hover {
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-}
-
 .live {
   border-radius: 50px;
   height: 30px;

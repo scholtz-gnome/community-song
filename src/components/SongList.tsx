@@ -1,5 +1,5 @@
-import "./SongList.css";
 import "../App.css";
+import "./file-item.css";
 import Song from "../interfaces/SongInterface";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -25,20 +25,16 @@ const SongList: React.FC = () => {
 
   return (
     <div className="outline">
-      <ul>
-        {songs &&
-          songs.map((song, index) => (
-            <li className="song-item" key={index}>
-              <div className="song-box">
-                <Link to={`/songs/${index + 1}`}>
-                  <p>Title: {song.title}</p>
-                  <p>Artist: {song.artist}</p>
-                  <p>Added by: {song.first_name}</p>
-                </Link>
-              </div>
-            </li>
-          ))}
-      </ul>
+      {songs &&
+        songs.map((song, index) => (
+          <div className="file-item" key={index}>
+            <Link to={`/songs/${index + 1}`}>
+              <p>Title: {song.title}</p>
+              <p>Artist: {song.artist}</p>
+              <p>Added by: {song.first_name}</p>
+            </Link>
+          </div>
+        ))}
     </div>
   );
 };

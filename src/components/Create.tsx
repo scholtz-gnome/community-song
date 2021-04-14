@@ -1,5 +1,5 @@
-import "./Create.css";
 import "./form.css";
+import "./file-item.css";
 import { BaseSyntheticEvent, useState } from "react";
 import axios from "axios";
 import config from "../config";
@@ -87,60 +87,65 @@ const Create: React.FC = () => {
   };
 
   return (
-    <div className="create outline">
+    <div className="create">
       <header>
         <h1>Create</h1>
         <h3>Create a song and upload it to community song</h3>
       </header>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label className="labelName">Song title</label>
-          <input
-            type="text"
-            name="title"
-            required
-            autoFocus
-            onChange={onTitleChange}
-          />
-        </div>
-        <div>
-          <label className="labelName">Artist</label>
-          <input type="text" name="artist" required onChange={onArtistChange} />
-        </div>
-        <div>
-          <label className="labelName">File</label>
-          <label htmlFor="upload" className="upload">
-            Choose File
-          </label>
-          <input
-            id="upload"
-            type="file"
-            name="song"
-            required
-            onChange={onSongChange}
-          />
-        </div>
-        {isOpened && (
-          <div className="files">
-            <div>
+      <div className="outline">
+        <form onSubmit={onSubmit}>
+          <div>
+            <label className="labelName">Song title</label>
+            <input
+              type="text"
+              name="title"
+              required
+              autoFocus
+              onChange={onTitleChange}
+            />
+          </div>
+          <div>
+            <label className="labelName">Artist</label>
+            <input
+              type="text"
+              name="artist"
+              required
+              onChange={onArtistChange}
+            />
+          </div>
+          <div>
+            <label className="labelName">File</label>
+            <label htmlFor="upload" className="upload">
+              Choose File
+            </label>
+            <input
+              id="upload"
+              type="file"
+              name="song"
+              required
+              onChange={onSongChange}
+            />
+          </div>
+          {isOpened && (
+            <div className="file-item">
               {songName}
               <div>{fileSize}MB</div>
             </div>
+          )}
+          <div>
+            <button className={submitButtonColor}>Create</button>
           </div>
-        )}
-        <div>
-          <button className={submitButtonColor}>Create</button>
-        </div>
-        {isUploading && (
-          <div
-            className="uploadPercentage"
-            style={{ width: `${uploadPercentage}%` }}
-          >
-            {uploadPercentage}%
-          </div>
-        )}
-        <div className="message">{message}</div>
-      </form>
+          {isUploading && (
+            <div
+              className="uploadPercentage"
+              style={{ width: `${uploadPercentage}%` }}
+            >
+              {uploadPercentage}%
+            </div>
+          )}
+          <div className="message">{message}</div>
+        </form>
+      </div>
     </div>
   );
 };

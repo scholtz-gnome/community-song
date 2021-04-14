@@ -36,11 +36,11 @@ const App: React.FC = () => {
         <div>
           <Switch>
             <Route exact path="/">
-              <header className="App-header">
+              <header>
                 <h1>Community Song</h1>
                 <div className="App-intro">
                   {user?.id && (
-                    <p>Welcome to Community Song, {user?.first_name}</p>
+                    <h3>Welcome to Community Song, {user?.first_name}</h3>
                   )}
                 </div>
               </header>

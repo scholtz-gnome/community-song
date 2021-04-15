@@ -3,15 +3,33 @@
   margin-bottom: 10px;
   padding: 8px;
   border-radius: 6px;
-  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 .file-item:hover {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .file-item > a {
   text-decoration: none;
   color: black;
+}
+
+.file-item > div > button {
+  height: 27px;
+  width: 80px;
+  border: 1.5px solid black;
+  border-radius: 15px;
+  margin-top: 6px;
+  padding: 2px;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.file-item > div > button:hover {
+  color: white;
+  background-color: rgb(223, 69, 69);
+  box-shadow: 0px 2px 6px rgba(223, 69, 69, 0.2);
 }

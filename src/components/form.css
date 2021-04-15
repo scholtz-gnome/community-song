@@ -57,6 +57,7 @@ input[type="text"] {
 
 .upload:hover {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .live {
@@ -72,6 +73,7 @@ input[type="text"] {
 
 .live:hover {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .grey {

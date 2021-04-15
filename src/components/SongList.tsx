@@ -1,5 +1,6 @@
 import "../App.css";
 import "./file-item.css";
+import SkeletonSong from "../skeletons/SkeletonSong";
 import Song from "../interfaces/SongInterface";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -17,7 +18,7 @@ const getSongs = async (setSongs: Function) => {
 };
 
 const SongList: React.FC = () => {
-  const [songs, setSongs] = useState<Song[] | undefined>([]);
+  const [songs, setSongs] = useState<Song[] | undefined>(undefined);
 
   useEffect(() => {
     getSongs(setSongs);
@@ -32,6 +33,7 @@ const SongList: React.FC = () => {
           </div>
         </Link>
       </div>
+      {!songs && [1, 2, 3, 4, 5].map((i) => <SkeletonSong key={i} />)}
       {songs &&
         songs.map((song, index) => (
           <div className="file-item" key={index}>

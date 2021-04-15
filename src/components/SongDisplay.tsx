@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import config from "../config";
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
+import SkeletonDisplaySong from "../skeletons/SkeletonDisplaySong";
+import SkeletonTitle from "../skeletons/SkeletonTitle";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -40,8 +42,10 @@ const SongDisplay: React.FC = () => {
       <header>
         <h1>{song?.title}</h1>
         <h3>{song?.artist}</h3>
+        {!song && <SkeletonTitle />}
       </header>
       <main className="outline">
+        {!song && <SkeletonDisplaySong />}
         {song && (
           <div className="side-panel">
             <div className="info">
@@ -82,7 +86,6 @@ const SongDisplay: React.FC = () => {
               <Page
                 pageNumber={pageNumber}
                 renderAnnotationLayer={false}
-                loading={<div className="loading"></div>}
                 width={500}
               />
             </Document>

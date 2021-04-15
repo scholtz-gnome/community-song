@@ -1,5 +1,6 @@
 import "../App.css";
 import "./file-item.css";
+import SkeletonProfileSong from "../skeletons/SkeletonProfileSong";
 import Song from "../interfaces/SongInterface";
 import User from "../interfaces/UserInterface";
 import { useEffect, useState } from "react";
@@ -54,6 +55,7 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
           </div>
         </Link>
       </div>
+      {!songs && [1, 2, 3].map((i) => <SkeletonProfileSong key={i} />)}
       {songs &&
         songs.map((song, index) => (
           <div key={index}>

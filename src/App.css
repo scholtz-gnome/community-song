@@ -11,6 +11,7 @@ img {
 
 header {
   width: 400px;
+  height: 75px;
   margin: 25px auto;
   text-align: center;
 }
@@ -21,7 +22,7 @@ header h1 {
 
 .outline {
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   display: flex;
   flex-direction: column;

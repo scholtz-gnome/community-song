@@ -1,0 +1,57 @@
+.skeleton {
+  background: #ddd;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.skeleton.title {
+  height: 15px;
+  width: 50%;
+  margin: 4px;
+}
+
+.skeleton.text {
+  height: 11px;
+  width: 55%;
+  margin: 3px;
+}
+
+.skeleton-song {
+  height: 73px;
+  width: 325px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton-profile-song {
+  height: 106px;
+  width: 325px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton-display-song {
+  height: 720px;
+  width: 720px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton-display-song > .side-panel > .info {
+  height: 174px;
+}

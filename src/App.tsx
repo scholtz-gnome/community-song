@@ -44,7 +44,7 @@ const App: React.FC = () => {
                   )}
                 </div>
               </header>
-              <main>
+              <main className="outline">
                 <SongList />
               </main>
             </Route>

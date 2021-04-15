@@ -1,0 +1,17 @@
+.info {
+  height: 100%;
+  width: 190px;
+  margin-right: 10px;
+  padding: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.info > p {
+  margin: 3px;
+}
+
+.info > img {
+  margin: 5px;
+}

@@ -1,10 +1,15 @@
 import "../App.css";
 import "./file-item.css";
 import Song from "../interfaces/SongInterface";
+import User from "../interfaces/UserInterface";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
+
+interface UserProps {
+  user: User | undefined;
+}
 
 const getSongs = async (setSongs: Function) => {
   try {
@@ -16,7 +21,7 @@ const getSongs = async (setSongs: Function) => {
   }
 };
 
-const SongList: React.FC = () => {
+const ProfileSongList: React.FC<UserProps> = ({ user }) => {
   const [songs, setSongs] = useState<Song[] | undefined>([]);
 
   useEffect(() => {
@@ -27,16 +32,20 @@ const SongList: React.FC = () => {
     <div>
       {songs &&
         songs.map((song, index) => (
-          <div className="file-item" key={index}>
-            <Link to={`/songs/${index + 1}`}>
-              <p>Title: {song.title}</p>
-              <p>Artist: {song.artist}</p>
-              <p>Added by: {song.first_name}</p>
-            </Link>
+          <div key={index}>
+            {user?.email === song.email && (
+              <div className="file-item">
+                <Link to={`/songs/${index + 1}`}>
+                  <p>Title: {song.title}</p>
+                  <p>Artist: {song.artist}</p>
+                  <p>Added by: {song.first_name}</p>
+                </Link>
+              </div>
+            )}
           </div>
         ))}
     </div>
   );
 };
 
-export default SongList;
+export default ProfileSongList;

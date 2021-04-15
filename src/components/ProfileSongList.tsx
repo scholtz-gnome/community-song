@@ -11,41 +11,88 @@ interface UserProps {
   user: User | undefined;
 }
 
-const getSongs = async (setSongs: Function) => {
+const getProfileSongs = async (
+  setSongs: Function,
+  email: string | undefined
+) => {
   try {
-    const res = await axios.get(`${config.API_ROOT}/songs`);
-    const songs = res.data;
-    setSongs(songs);
+    const res = await axios.get(
+      `${config.API_ROOT}/songs/profileSongs/${email}`
+    );
+    const profileSongs = res.data;
+    setSongs(profileSongs);
   } catch (err) {
     console.log(err);
   }
 };
 
 const ProfileSongList: React.FC<UserProps> = ({ user }) => {
-  const [songs, setSongs] = useState<Song[] | undefined>([]);
+  const [songs, setSongs] = useState<Song[] | undefined>(undefined);
 
   useEffect(() => {
-    getSongs(setSongs);
-  }, []);
+    getProfileSongs(setSongs, user?.email);
+  }, [user]);
 
-  return (
-    <div>
-      {songs &&
-        songs.map((song, index) => (
-          <div key={index}>
-            {user?.email === song.email && (
-              <div className="file-item">
-                <Link to={`/songs/${index + 1}`}>
-                  <p>Title: {song.title}</p>
-                  <p>Artist: {song.artist}</p>
-                  <p>Added by: {song.first_name}</p>
-                </Link>
+  const deleteSong = (songId: number, title: string) => {
+    try {
+      axios.delete(`${config.API_ROOT}/songs/${songId}`);
+      const newList = songs?.filter((song) => {
+        return song.title !== title;
+      });
+      setSongs(newList);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (songs?.length) {
+    return (
+      <div>
+        {songs &&
+          songs.map((song, index) => (
+            <div key={index}>
+              {user?.email === song.email && (
+                <div className="file-item">
+                  <Link to={`/songs/${song.id}`}>
+                    <div>
+                      <p>Title: {song.title}</p>
+                      <p>Artist: {song.artist}</p>
+                      <p>Added by: {song.first_name}</p>
+                    </div>
+                  </Link>
+                  <div>
+                    <button onClick={() => deleteSong(song.id, song.title)}>
+                      DELETE
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        <div className="file-item">
+          <Link to="/create">
+            <div>
+              <p>Create</p>
+            </div>
+          </Link>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div>
+          <div className="file-item">
+            <Link to="/create">
+              <div>
+                <p>You haven't created any songs yet</p>
               </div>
-            )}
+            </Link>
           </div>
-        ))}
-    </div>
-  );
+        </div>
+      </div>
+    );
+  }
 };
 
 export default ProfileSongList;

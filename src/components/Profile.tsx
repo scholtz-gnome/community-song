@@ -19,8 +19,7 @@ const Profile: React.FC<UserProps> = ({ user }) => {
           <div className="side-panel">
             <div className="info">
               <img src={user.profile_pic} alt={user.email} />
-              <p>Name:{user.first_name}</p>
-              <p>Surname: {user.last_name}</p>
+              <p>{user.first_name}</p>
               <p>{user.email}</p>
             </div>
             <div>

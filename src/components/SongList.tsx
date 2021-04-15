@@ -28,7 +28,7 @@ const SongList: React.FC = () => {
       {songs &&
         songs.map((song, index) => (
           <div className="file-item" key={index}>
-            <Link to={`/songs/${index + 1}`}>
+            <Link to={`/songs/${song.id}`}>
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.first_name}</p>

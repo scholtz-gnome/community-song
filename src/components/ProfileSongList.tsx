@@ -45,54 +45,38 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
     }
   };
 
-  if (songs?.length) {
-    return (
-      <div>
-        {songs &&
-          songs.map((song, index) => (
-            <div key={index}>
-              {user?.email === song.email && (
-                <div className="file-item">
-                  <Link to={`/songs/${song.id}`}>
-                    <div>
-                      <p>Title: {song.title}</p>
-                      <p>Artist: {song.artist}</p>
-                      <p>Added by: {song.first_name}</p>
-                    </div>
-                  </Link>
-                  <div>
-                    <button onClick={() => deleteSong(song.id, song.title)}>
-                      DELETE
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        <div className="file-item">
-          <Link to="/create">
-            <div>
-              <p>Create</p>
-            </div>
-          </Link>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <div>
-          <div className="file-item">
-            <Link to="/create">
-              <div>
-                <p>You haven't created any songs yet</p>
-              </div>
-            </Link>
+  return (
+    <div>
+      <div className="file-item">
+        <Link to="/create">
+          <div>
+            <p>Create</p>
           </div>
-        </div>
+        </Link>
       </div>
-    );
-  }
+      {songs &&
+        songs.map((song, index) => (
+          <div key={index}>
+            {user?.email === song.email && (
+              <div className="file-item">
+                <Link to={`/songs/${song.id}`}>
+                  <div>
+                    <p>Title: {song.title}</p>
+                    <p>Artist: {song.artist}</p>
+                    <p>Added by: {song.first_name}</p>
+                  </div>
+                </Link>
+                <div>
+                  <button onClick={() => deleteSong(song.id, song.title)}>
+                    DELETE
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+    </div>
+  );
 };
 
 export default ProfileSongList;

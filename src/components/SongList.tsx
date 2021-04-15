@@ -25,6 +25,13 @@ const SongList: React.FC = () => {
 
   return (
     <div>
+      <div className="file-item">
+        <Link to="/create">
+          <div>
+            <p>Create</p>
+          </div>
+        </Link>
+      </div>
       {songs &&
         songs.map((song, index) => (
           <div className="file-item" key={index}>

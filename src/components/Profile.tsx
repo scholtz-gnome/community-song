@@ -1,3 +1,6 @@
+import "./info.css";
+import "./side-panel.css";
+import ProfileSongList from "./ProfileSongList";
 import User from "../interfaces/UserInterface";
 
 interface UserProps {
@@ -10,14 +13,21 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       <div>
         <header>
           <h1>Profile</h1>
-          <h3>View your profile details here</h3>
+          <h3>View your profile details and added songs</h3>
         </header>
-        <div className="outline">
-          <img src={user.profile_pic} alt={user.email} />
-          <p>Name:{user.first_name}</p>
-          <p>Surname: {user.last_name}</p>
-          <p>{user.email}</p>
-        </div>
+        <main className="outline">
+          <div className="side-panel">
+            <div className="info">
+              <img src={user.profile_pic} alt={user.email} />
+              <p>Name:{user.first_name}</p>
+              <p>Surname: {user.last_name}</p>
+              <p>{user.email}</p>
+            </div>
+            <div>
+              <ProfileSongList user={user} />
+            </div>
+          </div>
+        </main>
       </div>
     );
   } else {

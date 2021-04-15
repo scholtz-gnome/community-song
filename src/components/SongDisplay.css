@@ -1,44 +1,18 @@
-.song {
-  display: flex;
-}
-
 .react-pdf__Document {
-  width: 610px;
-  height: 840px;
+  width: 500px;
 }
 
 .react-pdf__Page__canvas {
-  padding: 1px;
-  margin-left: 15px;
-  border-radius: 4px;
+  width: 500px;
+  border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 590px;
-  height: 830px;
 }
 
 .loading {
-  width: 595px;
-  height: 830px;
-  margin-left: 15px;
+  height: 707px;
+  width: 500px;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.songInfo {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  height: 100%;
-  padding: 15px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.songInfo > p {
-  margin: 6px;
-}
-
-.songInfo > img {
-  margin: 5px;
 }
 
 .buttons {

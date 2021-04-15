@@ -1,5 +1,7 @@
 import "../App.css";
 import "./SongDisplay.css";
+import "./info.css";
+import "./side-panel.css";
 import Song from "../interfaces/SongInterface";
 import { useEffect, useState } from "react";
 import config from "../config";
@@ -41,8 +43,8 @@ const SongDisplay: React.FC = () => {
       </header>
       <main className="outline">
         {song && (
-          <div className="song">
-            <div className="songInfo">
+          <div className="side-panel">
+            <div className="info">
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.first_name}</p>
@@ -81,6 +83,7 @@ const SongDisplay: React.FC = () => {
                 pageNumber={pageNumber}
                 renderAnnotationLayer={false}
                 loading={<div className="loading"></div>}
+                width={500}
               />
             </Document>
           </div>

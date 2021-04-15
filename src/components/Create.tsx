@@ -87,12 +87,12 @@ const Create: React.FC = () => {
   };
 
   return (
-    <div className="create">
+    <div>
       <header>
         <h1>Create</h1>
         <h3>Create a song and upload it to community song</h3>
       </header>
-      <div className="outline">
+      <main className="outline">
         <form onSubmit={onSubmit}>
           <div>
             <label className="labelName">Song title</label>
@@ -145,7 +145,7 @@ const Create: React.FC = () => {
           )}
           <div className="message">{message}</div>
         </form>
-      </div>
+      </main>
     </div>
   );
 };

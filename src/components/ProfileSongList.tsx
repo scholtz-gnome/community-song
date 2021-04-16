@@ -1,16 +1,12 @@
 import "../App.css";
 import "./file-item.css";
 import SkeletonProfileSong from "../skeletons/SkeletonProfileSong";
-import Song from "../interfaces/SongInterface";
-import User from "../interfaces/UserInterface";
+import Song from "../interfaces/Song";
+import UserProps from "../interfaces/UserProps";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
-
-interface UserProps {
-  user: User | undefined;
-}
 
 const getProfileSongs = async (
   setSongs: Function,
@@ -34,12 +30,13 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
     getProfileSongs(setSongs, user?.email);
   }, [user]);
 
-  const deleteSong = (songId: number, title: string) => {
+  const deleteSong = async (songId: number, title: string) => {
     try {
-      axios.delete(`${config.API_ROOT}/songs/${songId}`);
+      const res = await axios.delete(`${config.API_ROOT}/songs/${songId}`);
       const newList = songs?.filter((song) => {
         return song.title !== title;
       });
+      console.log(res.data);
       setSongs(newList);
     } catch (err) {
       console.log(err);
@@ -65,7 +62,7 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
                   <div>
                     <p>Title: {song.title}</p>
                     <p>Artist: {song.artist}</p>
-                    <p>Added by: {song.first_name}</p>
+                    <p>Added by: {song.firstName}</p>
                   </div>
                 </Link>
                 <div>

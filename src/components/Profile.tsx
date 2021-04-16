@@ -1,11 +1,8 @@
+import config from "../config";
 import "./info.css";
 import "./side-panel.css";
 import ProfileSongList from "./ProfileSongList";
-import User from "../interfaces/UserInterface";
-
-interface UserProps {
-  user: User | undefined;
-}
+import UserProps from "../interfaces/UserProps";
 
 const Profile: React.FC<UserProps> = ({ user }) => {
   if (user?.id) {
@@ -13,8 +10,8 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       <div>
         <div className="side-panel">
           <div className="info">
-            <img src={user.profile_pic} alt={user.email} />
-            <p>{user.first_name}</p>
+            <img src={user.profilePic || ""} alt={user.email} />
+            <p>{user.firstName}</p>
             <p>{user.email}</p>
           </div>
           <div>
@@ -24,7 +21,13 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       </div>
     );
   } else {
-    return <div>You're not logged in</div>;
+    return (
+      <h3>
+        <a className="link-reset" href={`${config.API_ROOT}/auth/google`}>
+          You're not logged in
+        </a>
+      </h3>
+    );
   }
 };
 

@@ -2,8 +2,8 @@ import "../App.css";
 import "./SongDisplay.css";
 import "./info.css";
 import "./side-panel.css";
-import Song from "../interfaces/SongInterface";
-import User from "../interfaces/UserInterface";
+import Song from "../interfaces/Song";
+import UserProps from "../interfaces/UserProps";
 import { useEffect, useState } from "react";
 import config from "../config";
 import axios from "axios";
@@ -13,10 +13,6 @@ import SkeletonTitle from "../skeletons/SkeletonTitle";
 import Create from "./Create";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
-interface UserProps {
-  user: User | undefined;
-}
 
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
@@ -58,8 +54,8 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
             <div className="info">
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
-              <p>Added by: {song.first_name}</p>
-              <img src={song.profile_pic} alt={song.first_name} />
+              <p>Added by: {song.firstName}</p>
+              <img src={song.profilePic} alt={song.firstName} />
               {song.file && (
                 <div>
                   <p>
@@ -120,7 +116,7 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
                 )}
                 {!song.file && (
                   <div className="loading">
-                    There is no file associated with this song
+                    There doesn't seem to be a file associated with this song.
                   </div>
                 )}
               </div>

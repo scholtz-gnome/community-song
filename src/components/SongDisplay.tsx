@@ -2,13 +2,15 @@ import "../App.css";
 import "./SongDisplay.css";
 import "./info.css";
 import "./side-panel.css";
-import Song from "../interfaces/SongInterface";
+import Song from "../interfaces/Song";
+import UserProps from "../interfaces/UserProps";
 import { useEffect, useState } from "react";
 import config from "../config";
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
 import SkeletonDisplaySong from "../skeletons/SkeletonDisplaySong";
 import SkeletonTitle from "../skeletons/SkeletonTitle";
+import Create from "./Create";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -23,11 +25,12 @@ const getSong = async (setSongs: Function) => {
   }
 };
 
-const SongDisplay: React.FC = () => {
+const SongDisplay: React.FC<UserProps> = ({ user }) => {
   const [song, setSong] = useState<Song | undefined>();
 
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [field, setField] = useState("view");
 
   function onDocumentLoadSuccess(numPages: any) {
     setNumPages(numPages._pdfInfo.numPages);
@@ -51,8 +54,8 @@ const SongDisplay: React.FC = () => {
             <div className="info">
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
-              <p>Added by: {song.first_name}</p>
-              <img src={song.profile_pic} alt={song.first_name} />
+              <p>Added by: {song.firstName}</p>
+              <img src={song.profilePic} alt={song.firstName} />
               {song.file && (
                 <div>
                   <p>
@@ -82,22 +85,45 @@ const SongDisplay: React.FC = () => {
                   </div>
                 </div>
               )}
+              {song.email === user?.email && (
+                <div>
+                  {field === "view" && (
+                    <div className="edit" onClick={() => setField("edit")}>
+                      <p>Edit</p>
+                    </div>
+                  )}
+                  {field === "edit" && (
+                    <div className="edit" onClick={() => setField("view")}>
+                      <p>View</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-            {song.file && (
-              <Document
-                file={`data:application/pdf;base64,${song.file.toString()}`}
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
-                <Page
-                  pageNumber={pageNumber}
-                  renderAnnotationLayer={false}
-                  width={500}
-                />
-              </Document>
+            {field === "view" && (
+              <div>
+                {song.file && (
+                  <Document
+                    file={`data:application/pdf;base64,${song.file.toString()}`}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                  >
+                    <Page
+                      pageNumber={pageNumber}
+                      renderAnnotationLayer={false}
+                      width={500}
+                    />
+                  </Document>
+                )}
+                {!song.file && (
+                  <div className="loading">
+                    There doesn't seem to be a file associated with this song.
+                  </div>
+                )}
+              </div>
             )}
-            {!song.file && (
-              <div className="loading">
-                There is no file associated with this song
+            {field === "edit" && (
+              <div>
+                <Create />
               </div>
             )}
           </div>

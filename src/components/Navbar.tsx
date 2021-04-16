@@ -1,11 +1,7 @@
+import config from "../config";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import User from "../interfaces/UserInterface";
-import config from "../config";
-
-interface UserProps {
-  user: User | undefined;
-}
+import UserProps from "../interfaces/UserProps";
 
 const Navbar: React.FC<UserProps> = ({ user }) => {
   return (
@@ -33,7 +29,7 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
               <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
             </div>
             <div>
-              <img src={user.profile_pic} alt={user.email} />
+              <img src={user.profilePic || ""} alt={user.email} />
             </div>
           </div>
         )}

@@ -7,7 +7,7 @@ interface SkeletonTypeProps {
 const SkeletonElement: React.FC<SkeletonTypeProps> = ({ type }) => {
   const classes = `skeleton ${type}`;
 
-  return <p className={classes}></p>;
+  return <div className={classes}></div>;
 };
 
 export default SkeletonElement;

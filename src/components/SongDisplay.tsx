@@ -53,42 +53,53 @@ const SongDisplay: React.FC = () => {
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.first_name}</p>
               <img src={song.profile_pic} alt={song.first_name} />
-              <p>
-                Page: {pageNumber} of {numPages}
-              </p>
-              <div className="buttons">
-                <button
-                  className="button"
-                  onClick={() =>
-                    pageNumber > 1
-                      ? setPageNumber(pageNumber - 1)
-                      : setPageNumber(1)
-                  }
-                >
-                  -
-                </button>
-                <button
-                  className="button"
-                  onClick={() =>
-                    pageNumber < numPages
-                      ? setPageNumber(pageNumber + 1)
-                      : setPageNumber(numPages)
-                  }
-                >
-                  +
-                </button>
-              </div>
+              {song.file && (
+                <div>
+                  <p>
+                    Page: {pageNumber} of {numPages}
+                  </p>
+                  <div className="buttons">
+                    <button
+                      className="button"
+                      onClick={() =>
+                        pageNumber > 1
+                          ? setPageNumber(pageNumber - 1)
+                          : setPageNumber(1)
+                      }
+                    >
+                      -
+                    </button>
+                    <button
+                      className="button"
+                      onClick={() =>
+                        pageNumber < numPages
+                          ? setPageNumber(pageNumber + 1)
+                          : setPageNumber(numPages)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-            <Document
-              file={`data:application/pdf;base64,${song.file.toString()}`}
-              onLoadSuccess={onDocumentLoadSuccess}
-            >
-              <Page
-                pageNumber={pageNumber}
-                renderAnnotationLayer={false}
-                width={500}
-              />
-            </Document>
+            {song.file && (
+              <Document
+                file={`data:application/pdf;base64,${song.file.toString()}`}
+                onLoadSuccess={onDocumentLoadSuccess}
+              >
+                <Page
+                  pageNumber={pageNumber}
+                  renderAnnotationLayer={false}
+                  width={500}
+                />
+              </Document>
+            )}
+            {!song.file && (
+              <div className="loading">
+                There is no file associated with this song
+              </div>
+            )}
           </div>
         )}
       </main>

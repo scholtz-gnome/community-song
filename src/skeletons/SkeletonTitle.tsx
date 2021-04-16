@@ -1,17 +1,15 @@
-import SkeletonElement from "./SkeletonElement";
 import "./Skeleton.css";
+import SkeletonElement from "./SkeletonElement";
+import Shimmer from "./Shimmer";
 
 const SkeletonTitle = () => {
   return (
-    <div className="skeleton-title">
-      <header>
-        <h1>
-          <SkeletonElement type="title" />
-        </h1>
-        <h3>
-          <SkeletonElement type="text" />
-        </h3>
-      </header>
+    <div className="skeleton-wrapper">
+      <div className="skeleton-title">
+        <SkeletonElement type="title" />
+        <SkeletonElement type="text" />
+      </div>
+      <Shimmer />
     </div>
   );
 };

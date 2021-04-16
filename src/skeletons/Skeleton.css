@@ -1,3 +1,4 @@
+/* Skeleton Element */
 .skeleton {
   background: #ddd;
   overflow: hidden;
@@ -6,16 +7,30 @@
 
 .skeleton.title {
   height: 15px;
-  width: 50%;
-  margin: 4px;
-}
-
-.skeleton.text {
-  height: 11px;
-  width: 55%;
+  width: 140px;
   margin: 3px;
 }
 
+.skeleton.text {
+  height: 10px;
+  width: 200px;
+  margin: 3px;
+}
+
+.skeleton.avatar {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  border-radius: 50px;
+}
+
+.skeleton-wrapper {
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Skeleton Modes */
 .skeleton-song {
   height: 73px;
   width: 325px;
@@ -32,7 +47,6 @@
 .skeleton-profile-song {
   height: 106px;
   width: 325px;
-  margin-bottom: 10px;
   padding: 10px;
   border-radius: 6px;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
@@ -46,12 +60,71 @@
   height: 720px;
   width: 720px;
   border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .skeleton-display-song > .side-panel > .info {
   height: 174px;
+}
+
+.skeleton-display-song > .side-panel > .info > .text {
+  width: 150px;
+  margin: 10px 0px;
+}
+
+.skeleton-wrapper > .skeleton-title > .title {
+  height: 42px;
+}
+
+.skeleton-wrapper > .skeleton-title > .text {
+  height: 22px;
+}
+
+.skeleton-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading > .title {
+  height: 40px;
+  margin: 15px;
+}
+
+/* Shimmer Animation */
+.shimmer-wrapper {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  animation: loading 1s infinite;
+  overflow: hidden;
+}
+
+.shimmer {
+  height: 100%;
+  width: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  box-shadow: 0 0 20px 20px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-150%);
+  }
+  30% {
+    transform: translate(-100%);
+  }
+  100% {
+    transform: translate(150%);
+  }
 }

@@ -3,14 +3,20 @@ import "./SongDisplay.css";
 import "./info.css";
 import "./side-panel.css";
 import Song from "../interfaces/SongInterface";
+import User from "../interfaces/UserInterface";
 import { useEffect, useState } from "react";
 import config from "../config";
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
 import SkeletonDisplaySong from "../skeletons/SkeletonDisplaySong";
 import SkeletonTitle from "../skeletons/SkeletonTitle";
+import Create from "./Create";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+interface UserProps {
+  user: User | undefined;
+}
 
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
@@ -23,11 +29,12 @@ const getSong = async (setSongs: Function) => {
   }
 };
 
-const SongDisplay: React.FC = () => {
+const SongDisplay: React.FC<UserProps> = ({ user }) => {
   const [song, setSong] = useState<Song | undefined>();
 
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [field, setField] = useState("view");
 
   function onDocumentLoadSuccess(numPages: any) {
     setNumPages(numPages._pdfInfo.numPages);
@@ -82,22 +89,45 @@ const SongDisplay: React.FC = () => {
                   </div>
                 </div>
               )}
+              {song.email === user?.email && (
+                <div>
+                  {field === "view" && (
+                    <div className="edit" onClick={() => setField("edit")}>
+                      <p>Edit</p>
+                    </div>
+                  )}
+                  {field === "edit" && (
+                    <div className="edit" onClick={() => setField("view")}>
+                      <p>View</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-            {song.file && (
-              <Document
-                file={`data:application/pdf;base64,${song.file.toString()}`}
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
-                <Page
-                  pageNumber={pageNumber}
-                  renderAnnotationLayer={false}
-                  width={500}
-                />
-              </Document>
+            {field === "view" && (
+              <div>
+                {song.file && (
+                  <Document
+                    file={`data:application/pdf;base64,${song.file.toString()}`}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                  >
+                    <Page
+                      pageNumber={pageNumber}
+                      renderAnnotationLayer={false}
+                      width={500}
+                    />
+                  </Document>
+                )}
+                {!song.file && (
+                  <div className="loading">
+                    There is no file associated with this song
+                  </div>
+                )}
+              </div>
             )}
-            {!song.file && (
-              <div className="loading">
-                There is no file associated with this song
+            {field === "edit" && (
+              <div>
+                <Create />
               </div>
             )}
           </div>

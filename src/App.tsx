@@ -49,13 +49,25 @@ const App: React.FC = () => {
               </main>
             </Route>
             <Route path="/profile">
-              <Profile user={user} />
+              <header>
+                <h1>Profile</h1>
+                <h3>View your profile details and added songs</h3>
+              </header>
+              <main className="outline">
+                <Profile user={user} />
+              </main>
             </Route>
             <Route path="/create">
-              <Create />
+              <header>
+                <h1>Create</h1>
+                <h3>Create a song and upload it to community song</h3>
+              </header>
+              <main className="outline">
+                <Create />
+              </main>
             </Route>
             <Route path="/songs">
-              <SongDisplay />
+              <SongDisplay user={user} />
             </Route>
           </Switch>
         </div>

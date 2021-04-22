@@ -32,7 +32,7 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
 
   const deleteSong = async (songId: number, title: string) => {
     try {
-      const res = await axios.delete(`${config.API_ROOT}/songs/${songId}`);
+      const res = await axios.delete(`${config.API_ROOT}/songs/song/${songId}`);
       const newList = songs?.filter((song) => {
         return song.title !== title;
       });

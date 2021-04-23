@@ -19,6 +19,7 @@ const getSong = async (setSongs: Function) => {
   try {
     const res = await axios.get(`${config.API_ROOT}/songs/${id}`);
     const song = res.data;
+    console.log(song);
     setSongs(song);
   } catch (err) {
     console.log(err);
@@ -27,7 +28,6 @@ const getSong = async (setSongs: Function) => {
 
 const SongDisplay: React.FC<UserProps> = ({ user }) => {
   const [song, setSong] = useState<Song | undefined>();
-
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [field, setField] = useState("view");
@@ -39,6 +39,16 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
   useEffect(() => {
     getSong(setSong);
   }, []);
+
+  const deleteFile = async (songId: number) => {
+    try {
+      const res = await axios.delete(`${config.API_ROOT}/songs/file/${songId}`);
+      console.log(res.data);
+      getSong(setSong);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -56,40 +66,49 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.firstName}</p>
               <img src={song.profilePic} alt={song.firstName} />
-              {song.file && (
-                <div>
-                  <p>
-                    Page: {pageNumber} of {numPages}
-                  </p>
-                  <div className="buttons">
-                    <button
-                      className="button"
-                      onClick={() =>
-                        pageNumber > 1
-                          ? setPageNumber(pageNumber - 1)
-                          : setPageNumber(1)
-                      }
-                    >
-                      -
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() =>
-                        pageNumber < numPages
-                          ? setPageNumber(pageNumber + 1)
-                          : setPageNumber(numPages)
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              )}
               {song.email === user?.email && (
                 <div>
                   {field === "view" && (
-                    <div className="edit" onClick={() => setField("edit")}>
-                      <p>Edit</p>
+                    <div>
+                      <div>
+                        {song.file && (
+                          <div>
+                            <p>
+                              Page: {pageNumber} of {numPages}
+                            </p>
+                            <div className="buttons">
+                              <button
+                                className="button"
+                                onClick={() =>
+                                  pageNumber > 1
+                                    ? setPageNumber(pageNumber - 1)
+                                    : setPageNumber(1)
+                                }
+                              >
+                                -
+                              </button>
+                              <button
+                                className="button"
+                                onClick={() =>
+                                  pageNumber < numPages
+                                    ? setPageNumber(pageNumber + 1)
+                                    : setPageNumber(numPages)
+                                }
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <button onClick={() => deleteFile(song.id)}>
+                          DELETE FILE
+                        </button>
+                      </div>
+                      <div className="edit" onClick={() => setField("edit")}>
+                        <p>Edit</p>
+                      </div>
                     </div>
                   )}
                   {field === "edit" && (

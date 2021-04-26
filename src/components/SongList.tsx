@@ -10,7 +10,8 @@ import axios from "axios";
 const getSongs = async (setSongs: Function) => {
   try {
     const res = await axios.get(`${config.API_ROOT}/songs`);
-    const songs = res.data;
+    const songs = res.data.songs;
+    console.log(res.data);
     setSongs(songs);
   } catch (err) {
     console.log(err);

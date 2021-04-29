@@ -9,7 +9,9 @@ import axios from "axios";
 
 const getSongs = async (setSongs: Function) => {
   try {
-    const res = await axios.get(`${config.API_ROOT}/songs`);
+    const res = await axios.get(`${config.API_ROOT}/songs`, {
+      withCredentials: true,
+    });
     const songs = res.data.songs;
     console.log(res.data);
     setSongs(songs);

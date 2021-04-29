@@ -17,7 +17,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
   try {
-    const res = await axios.get(`${config.API_ROOT}/songs/${id}`);
+    const res = await axios.get(`${config.API_ROOT}/songs/${id}`, {
+      withCredentials: true,
+    });
     const song = res.data;
     console.log(song);
     setSongs(song);

@@ -25,9 +25,9 @@ const getUserDetails = async (setUser: Function) => {
 const App: React.FC = () => {
   const [user, setUser] = useState<User | undefined>();
 
-  useEffect(() => {
-    getUserDetails(setUser);
-  }, []);
+  // useEffect(() => {
+  //   getUserDetails(setUser);
+  // }, []);
 
   return (
     <Router>

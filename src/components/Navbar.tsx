@@ -28,12 +28,12 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
             <div className="link">
               <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
             </div>
-            <div>
+            {/* <div>
               <img src={user.profilePic || ""} alt={user.email} />
-            </div>
+            </div> */}
           </div>
         )}
-        {!user?.id && <a href={`${config.API_ROOT}/auth/google`}>Log In</a>}
+        {!user?.id && <a href={`${config.API_ROOT}/auth/login`}>Log In</a>}
       </div>
     </nav>
   );

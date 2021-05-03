@@ -16,10 +16,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
+  const csrfToken = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("CSRF-TOKEN"))
+    ?.split("=")[1];
+  const axiosConfig = {
+    withCredentials: true,
+    headers: { "X-CSRF-TOKEN": csrfToken },
+  };
   try {
-    const res = await axios.get(`${config.API_ROOT}/songs/${id}`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(`${config.API_ROOT}/songs/${id}`, axiosConfig);
     const song = res.data;
     console.log(song);
     setSongs(song);

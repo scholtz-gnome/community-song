@@ -8,12 +8,18 @@ import config from "../config";
 import axios from "axios";
 
 const getSongs = async (setSongs: Function) => {
+  const csrfToken = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("CSRF-TOKEN"))
+    ?.split("=")[1];
+  const axiosConfig = {
+    withCredentials: true,
+    headers: { "X-CSRF-TOKEN": csrfToken },
+  };
   try {
-    const res = await axios.get(`${config.API_ROOT}/songs`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(`${config.API_ROOT}/songs`, axiosConfig);
     const songs = res.data.songs;
-    console.log(res.data);
+
     setSongs(songs);
   } catch (err) {
     console.log(err);

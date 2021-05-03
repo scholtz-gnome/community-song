@@ -8,13 +8,22 @@ import { Link } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 
+const csrfToken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("CSRF-TOKEN"))
+  ?.split("=")[1];
+const axiosConfig = {
+  withCredentials: true,
+  headers: { "X-CSRF-TOKEN": csrfToken },
+};
 const getProfileSongs = async (
   setSongs: Function,
   email: string | undefined
 ) => {
   try {
     const res = await axios.get(
-      `${config.API_ROOT}/songs/profileSongs/${email}`
+      `${config.API_ROOT}/songs/profileSongs/${email}`,
+      axiosConfig
     );
     const profileSongs = res.data;
     setSongs(profileSongs);
@@ -32,7 +41,10 @@ const ProfileSongList: React.FC<UserProps> = ({ user }) => {
 
   const deleteSong = async (songId: number, title: string) => {
     try {
-      const res = await axios.delete(`${config.API_ROOT}/songs/song/${songId}`);
+      const res = await axios.delete(
+        `${config.API_ROOT}/songs/song/${songId}`,
+        axiosConfig
+      );
       const newList = songs?.filter((song) => {
         return song.title !== title;
       });

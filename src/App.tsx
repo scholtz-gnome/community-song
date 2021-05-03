@@ -11,11 +11,18 @@ import axios from "axios";
 import User from "./interfaces/User";
 
 const getUserDetails = async (setUser: Function) => {
+  const csrfToken = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("CSRF-TOKEN"))
+    ?.split("=")[1];
+  const axiosConfig = {
+    withCredentials: true,
+    headers: { "X-CSRF-TOKEN": csrfToken },
+  };
   try {
-    const res = await axios.get(`${config.API_ROOT}/auth`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(`${config.API_ROOT}/auth`, axiosConfig);
     const userDetails: User = res.data;
+
     setUser(userDetails);
   } catch (err) {
     console.log(err);

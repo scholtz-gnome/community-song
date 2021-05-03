@@ -5,6 +5,10 @@ import axios from "axios";
 import config from "../config";
 
 const splitType = (str: string) => str.split("/")[1];
+const csrfToken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("CSRF-TOKEN"))
+  ?.split("=")[1];
 
 const Create: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -73,7 +77,10 @@ const Create: React.FC = () => {
     const url = `${config.API_ROOT}/songs`;
     const axiosConfig = {
       withCredentials: true,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "X-CSRF-TOKEN": csrfToken,
+      },
       onUploadProgress: (progressEvent: ProgressEvent) => {
         setIsUploading(true);
         setUploadPercentage(

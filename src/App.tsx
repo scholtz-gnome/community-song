@@ -19,7 +19,6 @@ const getUserDetails = async (setUser: Function) => {
     withCredentials: true,
     headers: { "X-CSRF-TOKEN": csrfToken },
   };
-  console.log(csrfToken);
   try {
     const res = await axios.get(`${config.API_ROOT}/auth`, axiosConfig);
     const userDetails: User = res.data;

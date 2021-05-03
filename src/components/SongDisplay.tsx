@@ -14,16 +14,16 @@ import Create from "./Create";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+const csrfToken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("CSRF-TOKEN"))
+  ?.split("=")[1];
+const axiosConfig = {
+  withCredentials: true,
+  headers: { "X-CSRF-TOKEN": csrfToken },
+};
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
-  const csrfToken = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("CSRF-TOKEN"))
-    ?.split("=")[1];
-  const axiosConfig = {
-    withCredentials: true,
-    headers: { "X-CSRF-TOKEN": csrfToken },
-  };
   try {
     const res = await axios.get(`${config.API_ROOT}/songs/${id}`, axiosConfig);
     const song = res.data;
@@ -50,7 +50,10 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
 
   const deleteFile = async (songId: number) => {
     try {
-      const res = await axios.delete(`${config.API_ROOT}/songs/file/${songId}`);
+      const res = await axios.delete(
+        `${config.API_ROOT}/songs/file/${songId}`,
+        axiosConfig
+      );
       console.log(res.data);
       getSong(setSong);
     } catch (err) {

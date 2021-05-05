@@ -69,6 +69,11 @@ input[type="text"] {
   outline: none;
 }
 
+.live > a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 1);
+}
+
 .live:hover {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;

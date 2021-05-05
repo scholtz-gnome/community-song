@@ -29,11 +29,16 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
               <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
             </div>
             <div>
-              <img src={user.profilePic || ""} alt={user.email} />
+              {user.profilePic && (
+                <img src={user.profilePic || ""} alt={user.email} />
+              )}
+              {user.profilePic === null && (
+                <i className="far fa-user-circle"></i>
+              )}
             </div>
           </div>
         )}
-        {!user?.id && <a href={`${config.API_ROOT}/auth/google`}>Log In</a>}
+        {!user?.id && <Link to="/auth">Sign Up</Link>}
       </div>
     </nav>
   );

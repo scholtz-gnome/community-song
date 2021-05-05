@@ -10,7 +10,10 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       <div>
         <div className="side-panel">
           <div className="info">
-            <img src={user.profilePic || ""} alt={user.email} />
+            {user.profilePic && (
+              <img src={user.profilePic || ""} alt={user.email} />
+            )}
+            {user.profilePic === null && <i className="far fa-user-circle"></i>}
             <p>{user.firstName}</p>
             <p>{user.email}</p>
           </div>

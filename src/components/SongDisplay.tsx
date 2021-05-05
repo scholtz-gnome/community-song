@@ -76,7 +76,12 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.firstName}</p>
-              <img src={song.profilePic} alt={song.firstName} />
+              {song.profilePic && (
+                <img src={song.profilePic || ""} alt={song.email} />
+              )}
+              {song.profilePic === null && (
+                <i className="far fa-user-circle"></i>
+              )}
               {song.email === user?.email && (
                 <div>
                   {field === "view" && (

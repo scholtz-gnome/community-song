@@ -4,6 +4,7 @@ import Profile from "./components/Profile";
 import Create from "./components/Create";
 import SongList from "./components/SongList";
 import SongDisplay from "./components/SongDisplay";
+import Auth from "./components/Auth";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import config from "./config";
@@ -77,6 +78,15 @@ const App: React.FC = () => {
             </Route>
             <Route path="/songs">
               <SongDisplay user={user} />
+            </Route>
+            <Route path="/auth">
+              <header>
+                <h1>Sign Up</h1>
+                <h3>Sign up for a Community Song account</h3>
+              </header>
+              <main className="outline">
+                <Auth />
+              </main>
             </Route>
           </Switch>
         </div>

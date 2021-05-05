@@ -3,6 +3,12 @@ img {
   border-radius: 50px;
 }
 
+.fa-user-circle {
+  font-size: 35px;
+  height: 40px;
+  border-radius: 50px;
+}
+
 .App > div {
   display: flex;
   flex-direction: column;

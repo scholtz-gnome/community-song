@@ -13,7 +13,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ user, color, size }) => {
           />
         </div>
       )}
-      {!user?.profilePic && (
+      {user?.profilePic === null && (
         <div className={`${color} ${size} ProfilePic`}>
           {user?.email[0].toUpperCase()}
         </div>

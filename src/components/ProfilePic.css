@@ -1,0 +1,43 @@
+.smallImage {
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+
+.bigImage {
+  height: 80px;
+  width: 80px;
+}
+
+.ProfilePic {
+  margin: 5px;
+  text-align: center;
+}
+
+.small {
+  height: 35px;
+  width: 35px;
+  padding: 5px 4.5px 4.5px 5px;
+  font-size: 17px;
+  border-radius: 35px;
+}
+
+.big {
+  height: 80px;
+  width: 80px;
+  padding: 22px;
+  font-size: 25px;
+  border-radius: 80px;
+}
+
+.light {
+  background-color: rgba(0, 0, 0, 1);
+  border: 2px solid rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.dark {
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+}

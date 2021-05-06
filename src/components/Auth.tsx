@@ -37,7 +37,10 @@ const Auth: React.FC = () => {
 
     try {
       const res = await axios.post(url, formJSON, axiosConfig);
-      window.location = res.data.redirect;
+      console.log(res.data);
+      if (!res.data.message) {
+        window.location = res.data.redirect;
+      }
     } catch (err) {
       console.log(err);
     }

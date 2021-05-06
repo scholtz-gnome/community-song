@@ -11,6 +11,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import SkeletonDisplaySong from "../skeletons/SkeletonDisplaySong";
 import SkeletonTitle from "../skeletons/SkeletonTitle";
 import Create from "./Create";
+import ProfilePic from "./ProfilePic";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -76,12 +77,7 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.firstName}</p>
-              {song.profilePic && (
-                <img src={song.profilePic || ""} alt={song.email} />
-              )}
-              {song.profilePic === null && (
-                <i className="far fa-user-circle"></i>
-              )}
+              <ProfilePic user={user} color="dark" size="small" />
               {song.email === user?.email && (
                 <div>
                   {field === "view" && (

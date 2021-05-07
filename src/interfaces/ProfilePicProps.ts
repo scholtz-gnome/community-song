@@ -1,6 +1,3 @@
-// import User from "./User";
-// import Song from "./Song";
-
 interface ProfilePicProps {
   picture: string | null;
   color: string;

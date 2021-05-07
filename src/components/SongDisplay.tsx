@@ -77,7 +77,12 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
               <p>Title: {song.title}</p>
               <p>Artist: {song.artist}</p>
               <p>Added by: {song.firstName}</p>
-              <ProfilePic user={user} color="dark" size="small" />
+              <ProfilePic
+                picture={song.profilePic}
+                color="dark"
+                size="small"
+                email={song.email}
+              />
               {song.email === user?.email && (
                 <div>
                   {field === "view" && (

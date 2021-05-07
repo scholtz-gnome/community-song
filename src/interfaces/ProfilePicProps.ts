@@ -1,9 +1,11 @@
-import User from "./User";
+// import User from "./User";
+// import Song from "./Song";
 
 interface ProfilePicProps {
-  user: User | undefined;
+  picture: string | null;
   color: string;
   size: string;
+  email: string;
 }
 
 export default ProfilePicProps;

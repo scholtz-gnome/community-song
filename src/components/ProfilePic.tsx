@@ -1,21 +1,22 @@
 import "./ProfilePic.css";
 import ProfilePicProps from "../interfaces/ProfilePicProps";
 
-const ProfilePic: React.FC<ProfilePicProps> = ({ user, color, size }) => {
+const ProfilePic: React.FC<ProfilePicProps> = ({
+  picture,
+  color,
+  size,
+  email,
+}) => {
   return (
     <div>
-      {user?.profilePic && (
+      {picture && (
         <div>
-          <img
-            src={user.profilePic}
-            alt={user.email}
-            className={`${size}Image`}
-          />
+          <img src={picture} alt="profilePic" className={`${size}Image`} />
         </div>
       )}
-      {user?.profilePic === null && (
+      {picture === null && (
         <div className={`${color} ${size} ProfilePic`}>
-          {user?.email[0].toUpperCase()}
+          {email[0].toUpperCase()}
         </div>
       )}
     </div>

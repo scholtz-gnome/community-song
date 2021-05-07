@@ -30,7 +30,12 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
               <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
             </div>
             <div>
-              <ProfilePic user={user} color="light" size="small" />
+              <ProfilePic
+                picture={user.profilePic}
+                color="light"
+                size="small"
+                email={user.email}
+              />
             </div>
           </div>
         )}

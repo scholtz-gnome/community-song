@@ -11,7 +11,12 @@ const Profile: React.FC<UserProps> = ({ user }) => {
       <div>
         <div className="side-panel">
           <div className="info">
-            <ProfilePic user={user} color="dark" size="big" />
+            <ProfilePic
+              picture={user.profilePic}
+              color="dark"
+              size="big"
+              email={user.email}
+            />
             <p>{user.firstName}</p>
             <p>{user.email}</p>
           </div>

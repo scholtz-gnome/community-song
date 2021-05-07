@@ -1,9 +1,9 @@
-import config from "../config";
 import "./info.css";
 import "./side-panel.css";
 import ProfileSongList from "./ProfileSongList";
 import ProfilePic from "./ProfilePic";
 import UserProps from "../interfaces/UserProps";
+import { Link } from "react-router-dom";
 
 const Profile: React.FC<UserProps> = ({ user }) => {
   if (user?.id) {
@@ -24,9 +24,7 @@ const Profile: React.FC<UserProps> = ({ user }) => {
   } else {
     return (
       <h3>
-        <a className="link-reset" href={`${config.API_ROOT}/auth/google`}>
-          You're not logged in
-        </a>
+        <Link to="/auth">You're not logged in</Link>
       </h3>
     );
   }

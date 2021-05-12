@@ -1,3 +1,4 @@
+import config from "../config";
 import "../App.css";
 import "./SongDisplay.css";
 import "./info.css";
@@ -5,24 +6,23 @@ import "./side-panel.css";
 import Song from "../interfaces/Song";
 import UserProps from "../interfaces/UserProps";
 import { useEffect, useState } from "react";
-import config from "../config";
 import axios from "axios";
-import { Document, Page, pdfjs } from "react-pdf";
 import SkeletonDisplaySong from "../skeletons/SkeletonDisplaySong";
 import SkeletonTitle from "../skeletons/SkeletonTitle";
 import Create from "./Create";
 import ProfilePic from "./ProfilePic";
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import FileDisplay from "./FileDisplay";
 
 const csrfToken = document.cookie
   .split("; ")
   .find((row) => row.startsWith("CSRF-TOKEN"))
   ?.split("=")[1];
+
 const axiosConfig = {
   withCredentials: true,
   headers: { "X-CSRF-TOKEN": csrfToken },
 };
+
 const getSong = async (setSongs: Function) => {
   const id = document.URL.split("/").reverse()[0];
   try {
@@ -37,13 +37,8 @@ const getSong = async (setSongs: Function) => {
 
 const SongDisplay: React.FC<UserProps> = ({ user }) => {
   const [song, setSong] = useState<Song | undefined>();
-  const [numPages, setNumPages] = useState(0);
-  const [pageNumber, setPageNumber] = useState(1);
   const [field, setField] = useState("view");
-
-  function onDocumentLoadSuccess(numPages: any) {
-    setNumPages(numPages._pdfInfo.numPages);
-  }
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     getSong(setSong);
@@ -61,7 +56,7 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
       console.log(err);
     }
   };
-
+  console.log(song);
   return (
     <div>
       <header>
@@ -88,29 +83,25 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
                   {field === "view" && (
                     <div>
                       <div>
-                        {song.file && (
+                        {song.url && (
                           <div>
-                            <p>
-                              Page: {pageNumber} of {numPages}
-                            </p>
+                            <p>Page: {pageNumber}</p>
                             <div className="buttons">
                               <button
                                 className="button"
                                 onClick={() =>
-                                  pageNumber > 1
-                                    ? setPageNumber(pageNumber - 1)
-                                    : setPageNumber(1)
+                                  setPageNumber(
+                                    pageNumber <= 1
+                                      ? pageNumber
+                                      : pageNumber - 1
+                                  )
                                 }
                               >
                                 -
                               </button>
                               <button
                                 className="button"
-                                onClick={() =>
-                                  pageNumber < numPages
-                                    ? setPageNumber(pageNumber + 1)
-                                    : setPageNumber(numPages)
-                                }
+                                onClick={() => setPageNumber(pageNumber + 1)}
                               >
                                 +
                               </button>
@@ -138,30 +129,15 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
             </div>
             {field === "view" && (
               <div>
-                {song.file && (
-                  <Document
-                    file={`data:application/pdf;base64,${song.file.toString()}`}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                  >
-                    <Page
-                      pageNumber={pageNumber}
-                      renderAnnotationLayer={false}
-                      width={500}
-                    />
-                  </Document>
-                )}
-                {!song.file && (
+                {!song.url && (
                   <div className="loading">
-                    There doesn't seem to be a file associated with this song.
+                    There isn't a file associated with this song
                   </div>
                 )}
+                {song.url && <FileDisplay page={pageNumber} />}
               </div>
             )}
-            {field === "edit" && (
-              <div>
-                <Create />
-              </div>
-            )}
+            {field === "edit" && <Create />}
           </div>
         )}
       </main>

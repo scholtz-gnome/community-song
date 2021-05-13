@@ -47,7 +47,7 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
   const deleteFile = async (songId: number) => {
     try {
       const res = await axios.delete(
-        `${config.API_ROOT}/songs/file/${songId}`,
+        `${config.API_ROOT}/files/${songId}`,
         axiosConfig
       );
       console.log(res.data);

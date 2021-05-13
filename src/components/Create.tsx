@@ -61,6 +61,7 @@ const Create: React.FC = () => {
       setSong(e.target.files[0]);
       setSongName(e.target.files[0].name);
       setFileSize(Math.round((fileSize / 1024 / 1024) * 10) / 10);
+      setSubmitButtonColor("live");
       setMessage("");
       setIsOpened(true);
     }

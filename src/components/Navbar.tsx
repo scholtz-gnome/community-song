@@ -14,20 +14,20 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
       </div>
       <div className="links">
         <div>
-          <Link to="/">Home</Link>
+          <Link to="/songs">Songs</Link>
         </div>
         <div>
-          <Link to="/profile">Profile</Link>
+          <Link to="/communities">Communities</Link>
         </div>
         <div>
-          <Link to="/create">Create</Link>
+          <Link to="/create">Create a Song</Link>
         </div>
       </div>
       <div className="auth">
         {user?.id && (
           <div className="logged-in">
             <div className="link">
-              <a href={`${config.API_ROOT}/auth/logout`}>Log Out</a>
+              <a href={`${config.API_ROOT}/profile/logout`}>Log Out</a>
             </div>
             <div>
               <ProfilePic
@@ -39,7 +39,8 @@ const Navbar: React.FC<UserProps> = ({ user }) => {
             </div>
           </div>
         )}
-        {!user?.id && <Link to="/auth">Sign Up</Link>}
+        {!user?.id && <Link to="/login">Log In</Link>}
+        {!user?.id && <Link to="/signup">Sign Up</Link>}
       </div>
     </nav>
   );

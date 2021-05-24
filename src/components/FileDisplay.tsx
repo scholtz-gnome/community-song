@@ -25,9 +25,8 @@ const getFile = async (setFile: Function, setMessage: Function) => {
   const id = document.URL.split("/").reverse()[0];
   try {
     const res = await axios.get(`${config.API_ROOT}/files/${id}`, axiosConfig);
-    const file = res.data;
-    console.log(file);
-    setFile(file.file);
+    console.log(res.data);
+    setFile(res.data.file);
   } catch (err) {
     setMessage("We can't retrieve the file right now. Sorry!");
     console.log(err);
@@ -49,6 +48,11 @@ const FileDisplay: React.FC<PagesProps> = ({ page }) => {
 
   return (
     <div>
+      {!file && (
+        <div className="loading">
+          There isn't a file associated with this song
+        </div>
+      )}
       {file && (
         <Document
           file={`data:application/pdf;base64,${file.toString()}`}

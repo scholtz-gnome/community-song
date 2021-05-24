@@ -4,7 +4,8 @@ import Profile from "./components/Profile";
 import Create from "./components/Create";
 import SongList from "./components/SongList";
 import SongDisplay from "./components/SongDisplay";
-import Auth from "./components/Auth";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import config from "./config";
@@ -67,7 +68,25 @@ const App: React.FC = () => {
                 <Profile user={user} />
               </main>
             </Route>
-            <Route path="/create">
+            <Route path="/communities">
+              <header>
+                <h1>Communities</h1>
+                <p>
+                  Not all communities are publicly visible.{" "}
+                  <a href="/signup">Sign up</a> to find others.
+                </p>
+              </header>
+            </Route>
+            <Route exact path="/songs">
+              <header>
+                <h1>Songs</h1>
+                <p>
+                  Not all songs are publicly visible.{" "}
+                  <a href="/signup">Sign up to find others.</a>
+                </p>
+              </header>
+            </Route>
+            <Route exact path="/create">
               <header>
                 <h1>Create</h1>
                 <h3>Create a song and upload it to community song</h3>
@@ -79,13 +98,25 @@ const App: React.FC = () => {
             <Route path="/songs">
               <SongDisplay user={user} />
             </Route>
-            <Route path="/auth">
+            <Route exact path="/signup">
               <header>
                 <h1>Sign Up</h1>
                 <h3>Sign up for a Community Song account</h3>
+                <p>
+                  Already registered? <a href="/login">Log in here</a>
+                </p>
               </header>
               <main className="outline">
-                <Auth />
+                <Signup />
+              </main>
+            </Route>
+            <Route exact path="/login">
+              <header>
+                <h1>Log In</h1>
+                <h3>Log in to your Community Song account</h3>
+              </header>
+              <main className="outline">
+                <Login />
               </main>
             </Route>
           </Switch>

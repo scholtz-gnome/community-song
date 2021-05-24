@@ -129,12 +129,7 @@ const SongDisplay: React.FC<UserProps> = ({ user }) => {
             </div>
             {field === "view" && (
               <div>
-                {!song.url && (
-                  <div className="loading">
-                    There isn't a file associated with this song
-                  </div>
-                )}
-                {song.url && <FileDisplay page={pageNumber} />}
+                <FileDisplay page={pageNumber} />
               </div>
             )}
             {field === "edit" && <Create />}
